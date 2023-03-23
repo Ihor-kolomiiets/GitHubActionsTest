@@ -1,8 +1,7 @@
 name: Test
-on:
- check_run
+on: push
 jobs:
- build:
+ init:
   runs-on: self-hosted
   steps:
    - name: Print echo
