@@ -1,0 +1,35 @@
+name: Deploy lambda function
+
+on:
+ push:
+  branches:
+   - main
+
+jobs:
+ build:
+  runs-on: ubuntu-latest
+  steps:
+   - name: Checkout code
+     uses: actions/checkout@v3
+   - name: Install python
+     uses: actions/setup-python@v4.5.0
+     with:
+      python-version: 3.8
+   - name: Install libs
+     run: |
+         echo 'First dir'
+         pwd
+         cd function
+         if [ -f requirements.txt ] then pip install -r requirements.txt -t .; fi
+   - name: Create Zip
+     run: |
+         echo 'Second dir'
+         pwd
+         cd function
+         zip -r ../${{ github.sha }}.zip .
+   - name: Acrchive artifact
+     uses: actions/upload-artifact@v2
+        with:
+          name: zipped-bundle
+          path: ${{ github.sha }}.zip
+     
