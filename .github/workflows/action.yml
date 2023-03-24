@@ -19,6 +19,7 @@ jobs:
      run: |
          echo 'First dir'
          pwd
+         ls
          cd function
          if [ -f requirements.txt ] then pip install -r requirements.txt -t .; fi
    - name: Create Zip
