@@ -20,13 +20,13 @@ jobs:
          echo 'First dir'
          pwd
          ls
-         cd function
+         cd functions
          if [ -f requirements.txt ] then pip install -r requirements.txt -t .; fi
    - name: Create Zip
      run: |
          echo 'Second dir'
          pwd
-         cd function
+         cd functions
          zip -r ../${{ github.sha }}.zip .
    - name: Acrchive artifact
      uses: actions/upload-artifact@v2
