@@ -35,12 +35,12 @@ jobs:
       name: zipped-bundle
       path: ${{ github.sha }}.zip
       
- publish:  #remake it because it doesn't work with tocken 
+ publish:  
+ # to work with github_token need right premisions on settings of actions, otherwise use PAT
   needs: build
   runs-on: ubuntu-latest
   steps:
-   - name: Check what is github.ref
-     run: echo ${{ github.ref }}
+# Check what is github.ref - it refers to HEAD, on which branch it watch
    - name: create release
      id: create-release
      uses: actions/create-release@v1
