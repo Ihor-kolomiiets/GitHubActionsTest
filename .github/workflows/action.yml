@@ -47,8 +47,8 @@ jobs:
      env:
       GITHUB_TOKEN: ${{ secrets.PAT }}
      with:
-      tag_name: ${{ github.ref }}
-      release_name: ${{ github.ref }}
+      tag_name: ${{ github.run_number }}
+      release_name: ${{ github.run_number }}
       body: |
            yay, new release
       draft: false
