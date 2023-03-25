@@ -35,20 +35,34 @@ jobs:
       name: zipped-bundle
       path: ${{ github.sha }}.zip
       
- publish:
+ publish:  #remake it because it doesn't work with tocken 
+  needs: build
   runs-on: ubuntu-latest
   steps:
    - name: Check what is github.ref
      run: echo ${{ github.ref }}
-   - name: publish release
+   - name: create release
+     id: create-release
      uses: actions/create-release@v1
      env:
       GITHUB_TOKEN: ${{ secrets.PAT }}
      with:
-      tag_name: ${{ github.run_number }}
-      release_name: ${{ github.run_number }}
+      tag_name: ${{ github.ref }}
+      release_name: ${{ github.ref }}
       body: |
            yay, new release
       draft: false
       prerelease: false
-      
+   - name: download artifact
+     uses: actions/download-artifact@v2
+     with:
+      name: zipped-bundle
+   - name: upload release assets
+     uses: actions/upload-release-asset@v1
+     env:
+      GITHUB_TOKEN: ${{ secrets.PAT }}
+     with:
+      upload_url: ${{ steps.create-release.outputs.upload_url }}
+      asset_path: ./${{ github.sha }}.zip
+      name: source_with_libs
+      asset_content_type: application\zip
