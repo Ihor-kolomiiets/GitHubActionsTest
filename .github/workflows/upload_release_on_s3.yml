@@ -4,9 +4,7 @@ description: |
              this workflow runs automatically,
              and upload asset to s3
 
-on:
-  release:
-    types: [created]
+on: release
 
 jobs:
   download:
