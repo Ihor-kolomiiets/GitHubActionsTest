@@ -10,6 +10,7 @@ jobs:
     steps:
      - name: Download release
        uses: robinraju/release-downloader@v1.7
+       id: release
        with:
         latest: true
         fileName: "source_with_libs.zip"
@@ -17,7 +18,7 @@ jobs:
        uses: actions/upload-artifact@v2
        with:
          name: zipped-bundle
-         path: ./source_with_libs.zip
+         path: ./${{ steps.release.outputs.fileName }}
     
   upload:
     needs: download
@@ -42,5 +43,5 @@ jobs:
      - name: upload to s3
        run: |
            pwd
-           aws s3 cp /home/runner/work/GitHubActionsTest/GitHubActionsTest/source_with_libs.zip s3://${{ secrets.BUCKET }}/source_with_libs.zip
+           aws s3 cp ./source_with_libs.zip s3://${{ secrets.BUCKET }}/source_with_libs.zip
 
