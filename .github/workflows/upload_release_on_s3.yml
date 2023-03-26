@@ -1,8 +1,5 @@
 name: Deploy release to S3
-description: |
-             Once there is release created,
-             this workflow runs automatically,
-             and upload asset to s3
+description: Once there is release created, this workflow runs automatically, and upload asset to s3
 
   on:
     release:
