@@ -13,11 +13,11 @@ jobs:
        with:
         latest: true
         fileName: "source_with_libs.zip"
-      - name: upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: zipped-bundle
-          path: ./source_with_libs.zip
+     - name: upload artifact
+       uses: actions/upload-artifact@v2
+       with:
+         name: zipped-bundle
+         path: ./source_with_libs.zip
     
   upload:
     needs: download
