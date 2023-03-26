@@ -6,7 +6,7 @@ description: |
 
 on:
   release:
-    types: [published]
+    types: [created]
 
 jobs:
   download:
