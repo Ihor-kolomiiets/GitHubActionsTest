@@ -23,7 +23,7 @@ jobs:
      - name: unzip CLI
        run: unzip awscliv2.zip
      - name: install CLI
-       run: sudo ./aws/install
+       run: sudo ./aws/install --update
      - name: configuring CLI
        run: |
            aws configure set region ${{ secrets.AWS_REGION }}
