@@ -56,7 +56,7 @@ jobs:
             aws configure set output json
       - name: update lambda func
         run: |
-            aws lanbda update-function-code \
+            aws lambda update-function-code \
             --function-name mylambda \
             --s3-bucket ${{ secrets.BUCKET }} \
             --s3-key source_with_libs.zip
