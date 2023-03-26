@@ -13,11 +13,20 @@ jobs:
        with:
         latest: true
         fileName: "source_with_libs.zip"
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: zipped-bundle
+          path: ./source_with_libs.zip
     
   upload:
     needs: download
     runs-on: ubuntu-latest
     steps:
+     - name: download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: zipped-bundle
      - name: download CLI
        run: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
      - name: unzip CLI
