@@ -1,0 +1,38 @@
+name: Deploy release to S3
+description: |
+             Once there is release created,
+             this workflow runs automatically,
+             and upload asset to s3
+
+  on:
+    release:
+      types: [published]
+
+  jobs:
+    download:
+      runs-on: ubuntu-latest
+      steps:
+       - name: Download release
+         uses: robinraju/release-downloader@v1.7
+         with:
+           latest: true
+           fileName: "source_with_libs.zip"
+    
+    upload:
+      needs: download
+      runs-on: ubuntu-latest
+      steps:
+       - name: download CLI
+         run: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+       - name: unzip CLI
+         run: unzip awscliv2.zip
+       - name: install CLI
+         run: sudo ./aws/install
+       - name: configuring CLI
+         run: |
+             aws configure set region ${{ secrets.AWS_REGION }}
+             aws configure set aws_access_key_id ${{ secrets.AWS_KEY }}
+             aws configure set aws_secret_access_key ${{ secrets.SECRET_KEY }}
+             aws configure set output json
+       - name: upload to s3
+         run: aws s3 cp source_with_libs.zip s3://${{ secrets.BUCKET }}/source_with_libs.zip
