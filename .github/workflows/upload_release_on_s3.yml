@@ -31,6 +31,7 @@ jobs:
            aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
            aws configure set output json
      - name: upload to s3
-       run: ls
-       run: aws s3 cp ./source_with_libs.zip s3://${{ secrets.BUCKET }}/source_with_libs.zip
+       run: |
+           ls
+           aws s3 cp ./source_with_libs.zip s3://${{ secrets.BUCKET }}/source_with_libs.zip
 
